@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier",
+    "tslint-sonarts"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "build",
+      "node_modules",
+      "coverage"
+    ]
+  },
+  "rules": {
+    "ordered-imports": false,
+    "object-literal-sort-keys" : false,
+    "no-console" : false
+ }
+}

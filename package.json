@@ -1,0 +1,77 @@
+{
+  "name": "express-typescript",
+  "version": "0.0.1",
+  "description": "Express Typescript Boilerplate",
+  "main": "src/app.js",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
+    "start": "tsc && node ./build/app.js",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts src/**/*.test.ts --timeout=5000 --recursive",
+    "cover": "nyc _mocha \"src/**/*.spec.ts\" \"src/**/*.test.ts\" --recursive",
+    "tslint": "tslint -p .",
+    "junit": "_mocha -r ts-node/register \"src/**/*.spec.ts\" \"src/**/*.test.ts\" --timeout=5000 --reporter mocha-junit-reporter",
+    "sonar": "node sonar-project.js"
+  },
+  "author": "Alfen Febral <alfenfebral@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "express": "^4.17.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "ts-node-dev": "^1.0.0-pre.39",
+    "typescript": "^3.4.5"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/chai-http": "^4.2.0",
+    "@types/express": "^4.16.1",
+    "@types/mocha": "^5.2.6",
+    "mocha-junit-reporter": "^1.22.0",
+    "pre-commit": "^1.2.2",
+    "sonarlint": "^1.1.0",
+    "sonarqube-scanner": "^2.4.0",
+    "source-map-support": "^0.5.12",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-sonarts": "^1.9.0"
+  },
+  "nyc": {
+    "lines": 10,
+    "statements": 10,
+    "functions": 10,
+    "branches": 10,
+    "check-coverage": true,
+    "include": [
+      "src/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "src/app.ts",
+      "src/**/*.spec.ts",
+      "src/**/*.test.ts"
+    ],
+    "require": [
+      "ts-node/register",
+      "source-map-support/register"
+    ],
+    "reporter": [
+      "html",
+      "text",
+      "lcov",
+      "text-summary"
+    ],
+    "all": true,
+    "cache": true,
+    "sourceMap": true,
+    "instrument": true,
+    "report-dir": "./coverage"
+  },
+  "pre-commit": [
+    "tslint"
+  ]
+}

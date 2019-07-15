@@ -1,14 +1,14 @@
 ## Create Typesript config
-npm run tsc -- --init
+```npm run tsc -- --init```
 
 ## run app in development
-npm run dec
+```npm run dec```
 
 ## Run test
-npm run test
+```npm run test```
 
 ## Run test with coverage
-npm run cover
+```npm run cover```
 
 ## Run sonarqube code analysis
-npm run sonar
+```npm run sonar```

@@ -7,7 +7,11 @@ coverage
 # ignore sonarcube
 .scannerwork
 
+# mac temp file
 .DS_Store
+
+# build folder
+build
 
 node_modules
 package-lock.json

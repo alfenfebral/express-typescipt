@@ -19,6 +19,7 @@
     "@types/cookie-parser": "^1.4.1",
     "@types/mongoose": "^5.5.3",
     "@types/node": "^12.0.2",
+    "@types/sinon": "^7.0.12",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cookie-parser": "^1.4.4",
@@ -26,6 +27,7 @@
     "mocha": "^6.1.4",
     "mongoose": "^5.5.12",
     "nyc": "^14.1.1",
+    "sinon": "^7.3.2",
     "ts-node-dev": "^1.0.0-pre.39",
     "typescript": "^3.4.5"
   },

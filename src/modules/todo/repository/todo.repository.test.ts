@@ -1,8 +1,9 @@
 import { TodoRepository } from './todo.repository';
+import Todo, { ITodo } from '../../../models/todo';
 import * as chai from 'chai';
 import 'mocha';
 import { mock, instance, when } from 'ts-mockito';
-import { mongo } from 'mongoose';
+import mongoose, { mongo } from 'mongoose';
 
 const expect = chai.expect;
 
@@ -45,7 +46,6 @@ describe('TodoRepository', () => {
     const result = await todoRepository.findAll();
     expect(result).to.be.an('array');
   })
-
   it('todoRepository:findOne should return object', async () => {
     const result = await todoRepository.findOne('5cf23720fd7ce61904d43eed');
     expect(result).to.be.a('object');
@@ -73,3 +73,14 @@ describe('TodoRepository', () => {
   })
 })
 
+// describe("Test whether result is array and json stringifyable.", () => {
+//   it("Should return the error", done => {
+//     const TodoMock: mongoose.Model<ITodo, {}> = mock<mongoose.Model<ITodo, {}>>(Todo);
+//     when(TodoMock.collection.find().toArray()).thenResolve([]);
+//     const todo: mongoose.Model<ITodo, {}> = instance(TodoMock);
+
+//     const result = todo.collection.find().toArray();
+//     console.log(result);
+//     expect(result).to.be.a('array');
+//   });
+// })

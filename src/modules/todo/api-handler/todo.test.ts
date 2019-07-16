@@ -9,6 +9,29 @@ import sinon from 'sinon';
 const expect = chai.expect;
 
 describe('TodoAPIHandler', () => {
+  it('init should done', async (done) => {
+    const router:any = {
+      get: sinon.stub().callsFake((val, fn) => {
+        return fn(val)
+      }),
+      post: sinon.stub().callsFake((val, fn) => {
+        return fn(val)
+      }),
+      put: sinon.stub().callsFake((val, fn) => {
+        return fn(val)
+      }),
+      delete: sinon.stub().callsFake((val, fn) => {
+        return fn(val)
+      }),
+    }
+
+    const next:any = {};
+
+    const todoApiHandler:TodoApiHandler = new TodoApiHandler(new TodoService(TodoRepositoryMock));
+    todoApiHandler.init(router);
+
+    done();
+  });
   it('getAll should return object', async () => {
     const request:any = {
       body: {}

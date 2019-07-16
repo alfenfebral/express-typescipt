@@ -22,8 +22,8 @@ export class Server {
     const todoApiHandler = new TodoApiHandler(new TodoService(new TodoRepository()));
     todoApiHandler.init(this.router);
 
-    this.router.listen(3000, () => {
-      console.log('Listening on port 3000!');
+    this.router.listen(process.env.PORT || 3000, () => {
+      console.log(`Listening on port ${process.env.PORT || 3000}!`);
     });
   }
 }

@@ -2,45 +2,12 @@ import { TodoRepository } from './../repository/todo.repository';
 import { TodoService } from './todo.service';
 import * as chai from 'chai';
 import 'mocha';
-import { mock, instance, when } from 'ts-mockito';
-import { mongo } from 'mongoose';
+import TodoRepositoryMock from '../repository/todo.repository.mock';
 
 const expect = chai.expect;
 
 describe('TodoService', () => {
-  const TodoRepositoryMock:TodoRepository = mock(TodoRepository);
-  when(TodoRepositoryMock.findAll()).thenResolve([]);
-  when(TodoRepositoryMock.findOne('5cf23720fd7ce61904d43eed')).thenResolve({});
-  when(TodoRepositoryMock.create({
-    title: 'lorem',
-    desc: 'ipsum',
-  })).thenResolve({
-    insertedCount: 1,
-    ops: [],
-    insertedId: new mongo.ObjectID('5cf23720fd7ce61904d43eed'),
-    connection: '',
-    result: { ok: 1, n: 1 },
-  });
-  when(TodoRepositoryMock.update('5cf23720fd7ce61904d43eed', {
-    title: 'lorem',
-    desc: 'ipsum',
-  })).thenResolve({
-    result: { ok: 1, n: 1, nModified: 1 },
-    connection: '',
-    matchedCount: 1,
-    modifiedCount: 1,
-    upsertedCount: 1,
-    upsertedId: { _id: new mongo.ObjectID('5cf23720fd7ce61904d43eed') },
-  });
-  when(TodoRepositoryMock.delete('5cf23720fd7ce61904d43eed')).thenResolve({
-    result: {
-      ok: 1,
-      n: 1,
-    },
-    connection: '',
-    deletedCount: 1,
-  });
-  const todoRepository:TodoRepository = instance(TodoRepositoryMock);
+  const todoRepository:TodoRepository = TodoRepositoryMock
 
   const todoService: TodoService = new TodoService(
     todoRepository,
@@ -61,7 +28,7 @@ describe('TodoService', () => {
       title: 'lorem',
       desc: 'ipsum'
     });
-    expect(result).to.be.a('null');
+    expect(result).to.be.a('object');
   })
 
   it('TodoService:update should return object', async () => {
@@ -69,7 +36,7 @@ describe('TodoService', () => {
       title: 'lorem',
       desc: 'ipsum'
     });
-    expect(result).to.be.a('null');
+    expect(result).to.be.a('object');
   })
 
   it('TodoService:delete should return message', async () => {

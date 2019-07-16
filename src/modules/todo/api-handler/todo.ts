@@ -15,7 +15,7 @@ export class TodoApiHandler {
     router.delete('/todo/:id', (req: Request, res: Response, next: NextFunction) => this.delete(req, res, next))
   }
 
-  private async getAll(req: Request, res: Response, next: NextFunction) {
+  public async getAll(req: Request, res: Response, next: NextFunction) {
     const result = await this.todoService.getAll();
 
     return res.status(200).send({
@@ -23,24 +23,22 @@ export class TodoApiHandler {
     });
   }
 
-  private async getOne(req: Request, res: Response, next: NextFunction) {
+  public async getOne(req: Request, res: Response, next: NextFunction) {
     const result = await this.todoService.getOne(req.params.id);
 
     return res.status(200).send(result);
   }
 
-  private async create(req: Request, res: Response, next: NextFunction) {
-    await this.todoService.create({
+  public async create(req: Request, res: Response, next: NextFunction) {
+    const result = await this.todoService.create({
       title: req.body.title,
       desc: req.body.desc,
     });
 
-    return res.status(200).send({
-      message: 'Todo item created',
-    });
+    return res.status(200).send(result.ops[0]);
   }
 
-  private async update(req: Request, res: Response, next: NextFunction) {
+  public async update(req: Request, res: Response, next: NextFunction) {
     await this.todoService.update(req.params.id, {
       title: req.body.title,
       desc: req.body.desc,
@@ -51,11 +49,11 @@ export class TodoApiHandler {
     return res.status(200).send(result);
   }
 
-  private async delete(req: Request, res: Response, next: NextFunction) {
+  public async delete(req: Request, res: Response, next: NextFunction) {
     await this.todoService.delete(req.params.id);
 
     return res.status(200).send({
-      message: `Todo item with id ${req.params.id} deleted`,
+     _id: req.params.id,
     });
   }
 }

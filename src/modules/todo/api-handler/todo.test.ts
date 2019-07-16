@@ -16,9 +16,9 @@ describe('TodoAPIHandler', () => {
 
     const response:any = {
       status: sinon.stub().returnsThis(),
-      send(val: any) {
+      send: sinon.stub().callsFake((val: any) => {
         return val;
-      }
+      }),
     };
 
     const next:any = {};
@@ -39,9 +39,9 @@ describe('TodoAPIHandler', () => {
 
     const response:any = {
       status: sinon.stub().returnsThis(),
-      send(val: any) {
+      send: sinon.stub().callsFake((val: any) => {
         return val;
-      }
+      }),
     };
 
     const next:any = {};
@@ -61,9 +61,9 @@ describe('TodoAPIHandler', () => {
 
     const response:any = {
       status: sinon.stub().returnsThis(),
-      send(val: any) {
+      send: sinon.stub().callsFake((val: any) => {
         return val;
-      }
+      }),
     };
 
     const next:any = {};
@@ -86,9 +86,9 @@ describe('TodoAPIHandler', () => {
 
     const response:any = {
       status: sinon.stub().returnsThis(),
-      send(val: any) {
+      send: sinon.stub().callsFake((val: any) => {
         return val;
-      }
+      }),
     };
 
     const next:any = {};
@@ -107,11 +107,11 @@ describe('TodoAPIHandler', () => {
 
     const response:any = {
       status: sinon.stub().returnsThis(),
-      send(val: any) {
+      send: sinon.stub().callsFake((val: any) => {
         return val;
-      }
+      }),
     };
-
+  
     const next:any = {};
 
     const todoApiHandler:TodoApiHandler = new TodoApiHandler(new TodoService(TodoRepositoryMock));

@@ -1,35 +1,104 @@
-import { TodoRepository } from './../repository/todo.repository';
 import { TodoService } from './../service/todo.service';
 import { TodoApiHandler } from './todo';
 import * as chai from 'chai';
 import 'mocha';
 import TodoRepositoryMock from '../repository/todo.repository.mock';
 import sinon from 'sinon';
+import { response } from 'express';
 
 const expect = chai.expect;
 
 describe('TodoAPIHandler', () => {
   it('init should done', async (done) => {
     const router:any = {
-      get: sinon.stub().callsFake((val, fn) => {
-        return fn(val)
+      get: sinon.stub().callsFake((url, fn) => {
+        let request:any = {};
+        let response:any = {};
+        const next:any = {};
+        if(url === '/todo/:id') {
+          request = {
+            body: {},
+            params: {
+              id: '5cf23720fd7ce61904d43eed'
+            }
+          };
+        }
+
+        response = {
+          status: sinon.stub().returnsThis(),
+          send: sinon.stub().callsFake((val: any) => {
+            return val;
+          }),
+        };
+
+        return fn(request, response, next);
       }),
-      post: sinon.stub().callsFake((val, fn) => {
-        return fn(val)
+      post: sinon.stub().callsFake((url, fn) => {
+        const request:any = {
+          body: {},
+          params: {
+            id: '5cf23720fd7ce61904d43eed'
+          }
+        };
+    
+        const response:any = {
+          status: sinon.stub().returnsThis(),
+          send: sinon.stub().callsFake((val: any) => {
+            return val;
+          }),
+        };
+    
+        const next:any = {};
+
+        return fn(request, response, next);
       }),
-      put: sinon.stub().callsFake((val, fn) => {
-        return fn(val)
+      put: sinon.stub().callsFake((url, fn) => {
+        const request:any = {
+          params: {
+            id: '5cf23720fd7ce61904d43eed'
+          },
+          body: {
+            title: 'lorem',
+            desc: 'ipsum',
+          },
+        };
+    
+        const response:any = {
+          status: sinon.stub().returnsThis(),
+          send: sinon.stub().callsFake((val: any) => {
+            return val;
+          }),
+        };
+    
+        const next:any = {};
+        return fn(request, response, next);
       }),
-      delete: sinon.stub().callsFake((val, fn) => {
-        return fn(val)
+      delete: sinon.stub().callsFake((url, fn) => {
+        const request:any = {
+          params: {
+            id: '5cf23720fd7ce61904d43eed'
+          },
+          body: {
+            title: 'lorem',
+            desc: 'ipsum',
+          },
+        };
+    
+        const response:any = {
+          status: sinon.stub().returnsThis(),
+          send: sinon.stub().callsFake((val: any) => {
+            return val;
+          }),
+        };
+    
+        const next:any = {};
+        return fn(request, response, next);
       }),
     }
+   
+    const todoApiHandler:TodoApiHandler = new TodoApiHandler(new TodoService(TodoRepositoryMock))
 
-    const next:any = {};
-
-    const todoApiHandler:TodoApiHandler = new TodoApiHandler(new TodoService(TodoRepositoryMock));
     todoApiHandler.init(router);
-
     done();
   });
   it('getAll should return object', async () => {

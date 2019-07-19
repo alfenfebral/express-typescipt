@@ -8,6 +8,7 @@
     "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
     "start": "tsc && node ./build/app.js",
     "test": "mocha -r ts-node/register src/**/*.spec.ts src/**/*.test.ts --timeout=5000 --recursive",
+    "test-watch": "npm run test -- --watch-extensions ts --watch -R min",
     "cover": "nyc _mocha \"src/**/*.spec.ts\" \"src/**/*.test.ts\" --recursive",
     "tslint": "tslint -p .",
     "junit": "_mocha -r ts-node/register \"src/**/*.spec.ts\" \"src/**/*.test.ts\" --timeout=5000 --reporter mocha-junit-reporter",
@@ -42,7 +43,6 @@
     "sonarlint": "^1.1.0",
     "sonarqube-scanner": "^2.4.0",
     "source-map-support": "^0.5.12",
-    "ts-mockito": "^2.3.1",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-sonarts": "^1.9.0"
@@ -61,8 +61,10 @@
     ],
     "exclude": [
       "src/app.ts",
+      "src/config",
       "src/**/*.spec.ts",
-      "src/**/*.test.ts"
+      "src/**/*.test.ts",
+      "src/**/*.mock.ts"
     ],
     "require": [
       "ts-node/register",

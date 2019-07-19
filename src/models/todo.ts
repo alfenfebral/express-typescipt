@@ -6,9 +6,15 @@ export interface ITodo extends mongoose.Document {
 }
 
 export const TodoSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  desc: { type: String, required: true }
+  title: {
+    type: String,
+    required: true
+  },
+  desc: {
+    type: String,
+    required: true
+  }
 });
 
-const Todo = mongoose.model<ITodo>('Todo', TodoSchema);
+const Todo = mongoose.models.Todo || mongoose.model<ITodo>('Todo', TodoSchema);
 export default Todo;

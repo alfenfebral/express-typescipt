@@ -1,3 +1,4 @@
+import { ValidationError } from '../../../utils/errors/index';
 import { TodoService } from '../service/todo.service';
 import { NextFunction, Request, Response, Router } from 'express'
 
@@ -24,9 +25,17 @@ export class TodoApiHandler {
   }
 
   public async getOne(req: Request, res: Response, next: NextFunction) {
-    const result = await this.todoService.getOne(req.params.id);
+    try {
+      const result = await this.todoService.getOne(req.params.id);
 
-    return res.status(200).send(result);
+      return res.status(200).send(result);
+    } catch (error) {
+      if(error.error instanceof ValidationError) {
+        return res.status(error.value.code).send({
+          message: error.value.message
+        });
+      }
+    }
   }
 
   public async create(req: Request, res: Response, next: NextFunction) {
@@ -35,25 +44,41 @@ export class TodoApiHandler {
       desc: req.body.desc,
     });
 
-    return res.status(200).send(result.ops[0]);
-  }
-
-  public async update(req: Request, res: Response, next: NextFunction) {
-    await this.todoService.update(req.params.id, {
-      title: req.body.title,
-      desc: req.body.desc,
-    });
-
-    const result = await this.todoService.getOne(req.params.id);
-
     return res.status(200).send(result);
   }
 
-  public async delete(req: Request, res: Response, next: NextFunction) {
-    await this.todoService.delete(req.params.id);
+  public async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      await this.todoService.update(req.params.id, {
+        title: req.body.title,
+        desc: req.body.desc,
+      });
+  
+      const result = await this.todoService.getOne(req.params.id);
+  
+      return res.status(200).send(result);
+    } catch (error) {
+      if(error.error instanceof ValidationError) {
+        return res.status(error.value.code).send({
+          message: error.value.message
+        });
+      }
+    }
+  }
 
-    return res.status(200).send({
-     _id: req.params.id,
-    });
+  public async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      await this.todoService.delete(req.params.id);
+
+      return res.status(200).send({
+        _id: req.params.id,
+      });
+    } catch (error) {
+      if(error.error instanceof ValidationError) {
+        return res.status(error.value.code).send({
+          message: error.value.message
+        });
+      }
+    }
   }
 }
